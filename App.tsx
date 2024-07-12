@@ -5,6 +5,8 @@
  * @format
  */
 
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -24,6 +26,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import EmployeesTab from './src/tabs/EmployeesTab';
+import SingleEmployeeTab from './src/tabs/SingleEmployeeTab';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -56,6 +60,35 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 }
 
 function App(): React.JSX.Element {
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  const Tab = createBottomTabNavigator();
+
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen
+          name="EmployeesTab"
+          component={EmployeesTab}
+          options={{
+            title: 'Employees',
+          }}
+        />
+        <Tab.Screen
+          name="SingleEmployeeTab"
+          component={SingleEmployeeTab}
+          options={{title: 'Employee Details'}}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function App2(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
