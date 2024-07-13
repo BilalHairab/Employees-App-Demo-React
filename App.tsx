@@ -28,6 +28,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import EmployeesTab from './src/tabs/EmployeesTab';
 import SingleEmployeeTab from './src/tabs/SingleEmployeeTab';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import EmployeeReducer from './src/reducers/employees/employeeReducer';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -68,23 +71,39 @@ function App(): React.JSX.Element {
 
   const Tab = createBottomTabNavigator();
 
+  const getTabBarIcon = ({focused, color, size}) => {
+    return (
+      <Text>Hi</Text>
+      // <Ionicons
+      //   name={focused ? 'information-circle' : 'information-circle-outline'}
+      //   size={size}
+      //   color={color}
+      // />
+    );
+  };
+
+  const store = createStore(EmployeeReducer);
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen
-          name="EmployeesTab"
-          component={EmployeesTab}
-          options={{
-            title: 'Employees',
-          }}
-        />
-        <Tab.Screen
-          name="SingleEmployeeTab"
-          component={SingleEmployeeTab}
-          options={{title: 'Employee Details'}}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen
+            name="EmployeesTab"
+            component={EmployeesTab}
+            options={{
+              title: 'Employees',
+              tabBarIcon: getTabBarIcon,
+            }}
+          />
+          <Tab.Screen
+            name="SingleEmployeeTab"
+            component={SingleEmployeeTab}
+            options={{title: 'Employee Details', tabBarIcon: getTabBarIcon}}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
