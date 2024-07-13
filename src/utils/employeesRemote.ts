@@ -4,13 +4,14 @@ import {Employee} from '../types/employee.types';
 const employeesBaseURL = 'https://dummy.restapiexample.com/api/v1/';
 
 export const fetchEmployees = async (): Promise<Employee[]> => {
-  return axios
+  const response = await axios
     .create({
       baseURL: employeesBaseURL,
-      timeout: 3000,
+      timeout: 15000,
     })
     .request({
       url: 'employees',
       method: 'GET',
     });
+  return response.data;
 };
