@@ -28,9 +28,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import EmployeesTab from './src/tabs/EmployeesTab';
 import SingleEmployeeTab from './src/tabs/SingleEmployeeTab';
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import EmployeeReducer from './src/reducers/employees/employeeReducer';
+import store from './src/reducers/mainStore';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -81,8 +80,6 @@ function App(): React.JSX.Element {
       // />
     );
   };
-
-  const store = createStore(EmployeeReducer);
 
   return (
     <Provider store={store}>
