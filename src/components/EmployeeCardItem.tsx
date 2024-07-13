@@ -2,29 +2,30 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Employee} from '../types/employee.types';
 import {PropsWithChildren} from 'react';
 import React from 'react';
-type NewType = {
+import {useDispatch} from 'react-redux';
+import {setActiveEmployee} from '../reducers/employees/employeesActions';
+import ImageUtil from '../utils/ImageUtil';
+type EmployeeCardProps = {
   employee: Employee;
+  navigation: any;
 };
 
-type Props = PropsWithChildren<NewType>;
+type Props = PropsWithChildren<EmployeeCardProps>;
 
 export function EmployeeCard(props: Props) {
+  const dispatch = useDispatch();
   const defualtImage = require('../../assets/employee_placeholder.jpg');
-  const hasValidImage = (employee: Employee) => {
-    if (!employee.profile_image) {
-      return false;
-    }
-    if (employee.profile_image === '') {
-      return false;
-    }
-    return true;
-  };
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => {
+        dispatch(setActiveEmployee(props.employee));
+        props.navigation.navigate('SingleEmployeeTab');
+      }}>
       <Image
         style={styles.image}
         source={
-          hasValidImage(props.employee)
+          ImageUtil.hasValidImage(props.employee)
             ? {uri: props.employee.profile_image}
             : defualtImage
         }

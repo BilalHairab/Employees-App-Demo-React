@@ -5,10 +5,12 @@ import {FlatList, RefreshControl, Text, View} from 'react-native';
 import useLoadEmployees from '../hooks/useLoadEmployeesHook';
 import {EmployeeCard} from '../components/EmployeeCardItem';
 import {ItemsSeparator} from '../components/ItemsSeparator';
+import { useNavigation } from '@react-navigation/native';
 
 export default function EmployeesTab(): React.JSX.Element {
   const [lastRequestTimestamp, setLastRequestTimestamp] = useState(Date.now());
   const {employees, error, isLoading} = useLoadEmployees(lastRequestTimestamp);
+  const navigation = useNavigation();
   const onRefresh = useCallback(() => {
     setLastRequestTimestamp(Date.now());
   }, []);
@@ -22,7 +24,7 @@ export default function EmployeesTab(): React.JSX.Element {
         }
         data={employees}
         renderItem={({item}) => {
-          return <EmployeeCard employee={item} />;
+          return <EmployeeCard employee={item} navigation={navigation} />;
         }}
         ItemSeparatorComponent={_ => <ItemsSeparator height={10} />}
         ListEmptyComponent={_ => (
