@@ -7,20 +7,25 @@ import {
   EmployeesActionSetLoadingError,
 } from './employeeReducer.types';
 import {Employee} from '../../types/employee.types';
-import {getAllEmployeesItems} from '../../utils/employeesDB';
-import {fetchEmployees} from '../../utils/employeesRemote';
+import {getAllEmployeesItems} from '../../db';
+import Api from '../../api';
 
 export const getEmployees = () => {
   return async function (dispatch: Dispatch<EmployeesAction>) {
     dispatch(setIsLoadingEmployees());
     try {
       let employees = await getAllEmployeesItems();
-      if (employees.length === 0) {
-        employees = await fetchEmployees();
+      if (!employees || employees.length === 0) {
+        employees = (await Api.fetchEmployees()) ?? <Employee[]>[];
       }
-      dispatch(setCurrentEmployees(employees));
+      dispatch(setCurrentEmployees(employees ?? []));
     } catch (error) {
-      dispatch(setEmployeesLoadingError(`${error} `));
+      console.log(`${error?.message} `);
+      dispatch(
+        setEmployeesLoadingError(
+          `${error?.message ?? 'Something Went Wrong, try again later'}`,
+        ),
+      );
     }
   };
 };
