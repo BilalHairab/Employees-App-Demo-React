@@ -11,7 +11,7 @@ export default function SingleEmployeeTab(): React.JSX.Element {
   return (
     <View style={{flex: 1}}>
       {employee ? (
-        <View style={{flex: 1, padding: 10, rowGap: 20, alignItems: 'center'}}>
+        <View style={{flex: 1, padding: 20, rowGap: 20, alignItems: 'center'}}>
           <Image
             resizeMode="contain"
             style={styles.image}
@@ -32,7 +32,7 @@ export default function SingleEmployeeTab(): React.JSX.Element {
           <Text
             style={{
               fontSize: 20,
-            }}>{`${employee.employee_age} Years Old`}</Text>
+            }}>{`${employee.employee_age} years old`}</Text>
         </View>
       ) : (
         <Text
