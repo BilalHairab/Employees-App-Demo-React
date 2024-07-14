@@ -43,7 +43,7 @@ export function EmployeeCard(props: Props) {
           {props.employee.employee_salary + ' AED'}
         </Text>
         <Text style={{flex: 2, fontSize: 15}}>
-          {props.employee.employee_age + ' Years Old'}
+          {props.employee.employee_age + ' years old'}
         </Text>
       </View>
     </TouchableOpacity>
