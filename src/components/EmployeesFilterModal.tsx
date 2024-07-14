@@ -40,6 +40,7 @@ export function EmployeesFilterModal(props: Props) {
     <Modal
       animationType="fade"
       visible={props.isModalVisible}
+      presentationStyle="formSheet"
       style={{margin: 0}}>
       <View
         style={{
