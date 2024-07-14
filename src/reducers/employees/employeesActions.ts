@@ -7,16 +7,19 @@ import {
   EmployeesActionSetLoadingError,
 } from './employeeReducer.types';
 import {Employee} from '../../types/employee.types';
-import {getAllEmployeesItems} from '../../db';
+import EmployeeDB from '../../db';
 import Api from '../../api';
 
 export const getEmployees = () => {
   return async function (dispatch: Dispatch<EmployeesAction>) {
     dispatch(setIsLoadingEmployees());
     try {
-      let employees = await getAllEmployeesItems();
+      let employees = await EmployeeDB.getAllEmployeesItems();
       if (!employees || employees.length === 0) {
         employees = (await Api.fetchEmployees()) ?? <Employee[]>[];
+        if (!employees || employees.length === 0) {
+          await EmployeeDB.saveEmployeesItems(employees);
+        }
       }
       dispatch(setCurrentEmployees(employees ?? []));
     } catch (error) {

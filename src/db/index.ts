@@ -22,35 +22,37 @@ const createTable = async (db: SQLiteDatabase) => {
   await db.executeSql(query);
 };
 
-export const getAllEmployeesItems = async (): Promise<Employee[]> => {
-  try {
+export default {
+  getAllEmployeesItems: async (): Promise<Employee[]> => {
+    try {
+      const db = await getDBConnection();
+      await createTable(db);
+      const employees: Employee[] = [];
+      const results = await db.executeSql(`SELECT * FROM ${tableName}`);
+      results.forEach(result => {
+        for (let index = 0; index < result.rows.length; index++) {
+          employees.push(result.rows.item(index));
+        }
+      });
+      return employees;
+    } catch (error) {
+      console.error(error);
+      throw Error('Failed to get employees !!!');
+    }
+  },
+
+  saveEmployeesItems: async (employees: Employee[]) => {
     const db = await getDBConnection();
     await createTable(db);
-    const employees: Employee[] = [];
-    const results = await db.executeSql(`SELECT * FROM ${tableName}`);
-    results.forEach(result => {
-      for (let index = 0; index < result.rows.length; index++) {
-        employees.push(result.rows.item(index));
-      }
-    });
-    return employees;
-  } catch (error) {
-    console.error(error);
-    throw Error('Failed to get employees !!!');
-  }
-};
+    const insertQuery =
+      `INSERT OR REPLACE INTO ${tableName}(id, employee_name, employee_salary, employee_age, profile_image) values` +
+      employees
+        .map(
+          i =>
+            `(${i.id}, '${i.employee_name}', '${i.employee_salary}', '${i.employee_age}', '${i.profile_image}')`,
+        )
+        .join(',');
 
-export const saveEmployeesItems = async (employees: Employee[]) => {
-  const db = await getDBConnection();
-  await createTable(db);
-  const insertQuery =
-    `INSERT OR REPLACE INTO ${tableName}(id, employee_name, employee_salary, employee_age, profile_image) values` +
-    employees
-      .map(
-        i =>
-          `(${i.id}, '${i.employee_name}', '${i.employee_salary}', '${i.employee_age}', '${i.profile_image}')`,
-      )
-      .join(',');
-
-  return db.executeSql(insertQuery);
+    return db.executeSql(insertQuery);
+  },
 };
