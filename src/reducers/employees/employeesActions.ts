@@ -17,7 +17,7 @@ export const getEmployees = () => {
       let employees = await EmployeeDB.getAllEmployeesItems();
       if (!employees || employees.length === 0) {
         employees = (await Api.fetchEmployees()) ?? <Employee[]>[];
-        if (!employees || employees.length === 0) {
+        if (employees && employees.length > 0) {
           await EmployeeDB.saveEmployeesItems(employees);
         }
       }
