@@ -2,7 +2,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Getting Started
 
->**Note**: Kindly be aware that this project was tested on Node 20.11.0 and Ruby 2.7.6.
+**Note**: Kindly be aware that this project was tested on Node 20.11.0 and Ruby 2.7.6.
 
 ## Step 1: Install and Build Project
 First, you will need to install dependencies of the project using:
