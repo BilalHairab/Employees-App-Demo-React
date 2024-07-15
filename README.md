@@ -2,11 +2,29 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+>**Note**: Kindly be aware that this project was tested on Node 20.11.0 and Ruby 2.7.6.
 
-## Step 1: Start the Metro Server
+## Step 1: Install and Build Project
+First, you will need to install dependencies of the project using:
+```bash
+# using npm
+npm install
+```
+Then, you need to install the pods for iOS platform project using the newly created command:
+```bash
+# using npm
+npm run refresh:ios
+```
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+Or you can combine them with clean and reset cache option in one step:
+```bash
+# using npm
+npm run startover
+```
+
+## Step 2: Start the Metro Server
+
+Now, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
 To start Metro, run the following command from the _root_ of your React Native project:
 
@@ -18,7 +36,7 @@ npm start
 yarn start
 ```
 
-## Step 2: Start your Application
+## Step 3: Start your Application
 
 Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
@@ -46,34 +64,23 @@ If everything is set up _correctly_, you should see your new app running in your
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
+## Used Technologies:
+### Redux and Redux Thunk
+For state management and async actions dispatch.
 
-Now that you have successfully run the app, let's modify it.
+### React Native SQLite db
+For caching ordinary and well-structured objects in db in case of no network.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+### React Native Vector Icons
+To view icons.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+### Axios
+Handle and manage network requests.
 
-## Congratulations! :tada:
+## What could be better:
+- Support Dark Mode.
+- Use Redux to handle and hold the filter state as well, to modify it through the app lifecycle easily as well.
+- Support CRUD operations.
 
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Video Demo:
+https://drive.google.com/file/d/1TpOeThpFSRfklliwprWITEPb7NTQOq0C/view?usp=sharing
