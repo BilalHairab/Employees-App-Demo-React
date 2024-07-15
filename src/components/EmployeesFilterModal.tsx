@@ -46,7 +46,6 @@ export function EmployeesFilterModal(props: Props) {
         style={{
           marginHorizontal: 10,
           marginTop: '30%',
-          height: '40%',
           borderColor: 'rgba(0,0,0,0.38)',
           padding: 5,
           alignItems: 'center',
@@ -125,7 +124,7 @@ export function EmployeesFilterModal(props: Props) {
             />
           </View>
         </View>
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, rowGap: 10}}>
           <Button
             title={'OK'}
             onPress={() => {

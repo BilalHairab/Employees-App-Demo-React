@@ -30,6 +30,7 @@ import EmployeesTab from './src/tabs/EmployeesTab';
 import SingleEmployeeTab from './src/tabs/SingleEmployeeTab';
 import {Provider} from 'react-redux';
 import store from './src/reducers/mainStore';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -70,33 +71,43 @@ function App(): React.JSX.Element {
 
   const Tab = createBottomTabNavigator();
 
-  const getTabBarIcon = ({focused, color, size}) => {
-    return (
-      <Text>Hi</Text>
-      // <Ionicons
-      //   name={focused ? 'information-circle' : 'information-circle-outline'}
-      //   size={size}
-      //   color={color}
-      // />
+  const getTabBarIcon = ({focused, color, size}, tabName) => {
+    if (tabName === 'EmployeesTab') {
+      return focused ? (
+        <Icon name="account-group" size={size} color={color} />
+      ) : (
+        <Icon name="account-group-outline" size={size} color={color} />
+      );
+    }
+    return focused ? (
+      <Icon name="account" size={size} color={color} />
+    ) : (
+      <Icon name="account-outline" size={size} color={color} />
     );
   };
 
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarActiveTintColor: 'red',
+          }}>
           <Tab.Screen
             name="EmployeesTab"
             component={EmployeesTab}
             options={{
               title: 'Employees',
-              tabBarIcon: getTabBarIcon,
+              tabBarIcon: props => getTabBarIcon(props, 'EmployeesTab'),
             }}
           />
           <Tab.Screen
             name="SingleEmployeeTab"
             component={SingleEmployeeTab}
-            options={{title: 'Employee Details', tabBarIcon: getTabBarIcon}}
+            options={{
+              title: 'Employee Details',
+              tabBarIcon: props => getTabBarIcon(props, 'SingleEmployeeTab'),
+            }}
           />
         </Tab.Navigator>
       </NavigationContainer>
